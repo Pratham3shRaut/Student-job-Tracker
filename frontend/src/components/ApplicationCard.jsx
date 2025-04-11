@@ -5,7 +5,7 @@ const ApplicationCard = ({ application, onUpdateStatus, onDelete }) => {
     <div className="application-card">
       <h3>{application.company}</h3>
       <p><strong>Role:</strong> {application.role}</p>
-      <p><strong>Date:</strong> {application.date}</p>
+      <p><strong>Date:</strong> {application.applicationDate}</p>
       <p><strong>Status:</strong>
         <select value={application.status} onChange={(e) => onUpdateStatus(e.target.value)}>
           <option>Applied</option>
