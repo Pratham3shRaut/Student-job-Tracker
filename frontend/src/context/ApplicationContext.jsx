@@ -7,7 +7,10 @@ export const ApplicationProvider = ({ children }) => {
   const [applications, setApplications] = useState([]);
   const [filter, setFilter] = useState({ status: '', date: '' });
 
-  const API_URL = 'http://localhost:5000/api/jobs';
+  // src/context/ApplicationContext.jsx
+const API_URL ='https://student-job-tracker-3-89gq.onrender.com/api/jobs';
+
+
 
 
   useEffect(() => {
@@ -44,21 +47,34 @@ export const ApplicationProvider = ({ children }) => {
 
   const updateStatus = async (id, status) => {
     try {
-      const res = await axios.patch(`${API_URL}/${id}`, { status });
+      console.log(status)
+      const res = await axios.patch(`${API_URL}/${id}`,  status);
       setApplications(prev => prev.map(app => app._id === id ? res.data : app));
     } catch (err) {
       console.error('Failed to update status', err);
     }
   };
 
+  // const deleteApplication = async (id) => {
+  //   try {
+  //     console.log("🧾 Deleting application ID:", id);
+
+  //     await axios.delete(`${API_URL}/${id}`);
+  //     setApplications(prev => prev.filter(app => app._id !== id));
+  //   } catch (err) {
+  //     console.error('Failed to delete application', err);
+  //   }
+  // };
   const deleteApplication = async (id) => {
     try {
+      console.log("🧾 Trying to delete:", `${API_URL}/${id}`);
       await axios.delete(`${API_URL}/${id}`);
       setApplications(prev => prev.filter(app => app._id !== id));
     } catch (err) {
-      console.error('Failed to delete application', err);
+      console.error('❌ Failed to delete application:', err.response?.data || err.message);
     }
   };
+  
 
   const filteredApps = applications.filter(app => {
     const statusMatch = !filter.status || app.status === filter.status;

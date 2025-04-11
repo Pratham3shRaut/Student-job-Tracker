@@ -11,8 +11,10 @@ const ApplicationList = () => {
         <ApplicationCard
           key={idx}
           application={app}
-          onUpdateStatus={(status) => updateStatus(idx, status)}
-          onDelete={() => deleteApplication(idx)}
+          onUpdateStatus={(status) => {
+            applications[idx].status=status
+            updateStatus(applications[idx]._id, applications[idx])}}
+          onDelete={() => deleteApplication(applications[idx]._id)}
         />
       ))}
     </div>
